@@ -29,12 +29,12 @@ export const appSlice = createSlice({
     resetEditedTask: (state) => {
       state.editedTask = initialState.editedTask
     },
-    toggleCsrfTokenExp: (state) => {
+    toggleCsrfState: (state) => {
       state.csrfTokenExp = !state.csrfTokenExp
     }
   },
 })
-export const { setEditedTask, resetEditedTask, toggleCsrfTokenExp } = appSlice.actions
+export const { setEditedTask, resetEditedTask, toggleCsrfState } = appSlice.actions
 
 //stateの値をuseSelectorで参照するための関数を定義
 export const selectTask = (state: RootState): Task => state.app.editedTask

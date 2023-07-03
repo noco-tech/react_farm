@@ -3,6 +3,9 @@ import axios from 'axios'
 import { CsrfToken } from './types/types'
 import { useAppSelector } from './app/hooks'
 import { selectCsrfState } from './slices/appSlice'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { Auth } from './components/Auth'
+import { Todo } from './components/Todo'
 
 function App() {
   const csrf = useAppSelector(selectCsrfState)
@@ -17,9 +20,12 @@ function App() {
     getCsrfToken()
   }, [csrf])
   return (
-    <div>
-      <h1>React Typescript Template</h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Auth />} />
+        <Route path="/todo" element={<Todo />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
