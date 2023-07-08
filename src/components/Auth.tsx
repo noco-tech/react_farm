@@ -1,9 +1,9 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { RefreshIcon } from '@heroicons/react/solid'
 import { BadgeCheckIcon } from '@heroicons/react/solid'
 import { useProcessAuth } from '../hooks/useProcessAuth'
 
-export const Auth: FC = () => {
+export const Auth = () => {
   const {
     pw,
     setPw,

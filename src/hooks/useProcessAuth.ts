@@ -1,7 +1,7 @@
 import { useState, FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useQueryClient } from 'react-query'
-import { useMutateAuth } from './useMutateAuth'
+import { useMutateAuth } from '../hooks/useMutateAuth'
 
 export const useProcessAuth = () => {
   const navigate = useNavigate()
