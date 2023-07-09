@@ -5,6 +5,7 @@ import { resetEditedTask, toggleCsrfState } from '../slices/appSlice'
 import { Task } from '../types/types'
 import { useNavigate } from 'react-router-dom'
 
+
 export const useQuerySingleTask = (id: string) => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
@@ -22,7 +23,8 @@ export const useQuerySingleTask = (id: string) => {
     queryFn: () => getSingleTask(id),
     enabled: !!id,
     staleTime: Infinity,
-    //cacheTime: 300000,
+    // cacheTime: 30000,
+
     onError: (err: any) => {
       alert(`${err.response.data.detail}\n${err.message}`)
       if (

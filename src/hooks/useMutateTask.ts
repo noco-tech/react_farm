@@ -58,6 +58,8 @@ export const useMutateTask = () => {
               task.id === variables.id ? res.data : task
             )
           )
+        // ここで更新したタスクを再度取得する
+        queryClient.invalidateQueries('single')
         }
         dispatch(resetEditedTask())
       },
