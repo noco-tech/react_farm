@@ -1,8 +1,7 @@
-import { useQuery } from "react-query";
-import axios from "axios";
-import { Task } from "../types/types";
+import { useQuery } from 'react-query'
+import axios from 'axios'
+import { Task } from '../types/types'
 
-// useQueryを使用してタスク一覧を取得するカスタムフック Todo.tsxで呼び出す
 export const useQueryTasks = () => {
   const getTasks = async () => {
     const { data } = await axios.get<Task[]>(
@@ -19,4 +18,3 @@ export const useQueryTasks = () => {
     staleTime: Infinity,
   })
 }
-

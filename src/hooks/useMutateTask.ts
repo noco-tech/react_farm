@@ -1,17 +1,15 @@
 import axios from 'axios'
 import { useAppDispatch } from '../app/hooks'
-import { useMutation, useQueryClient } from 'react-query'
+import { useQueryClient, useMutation } from 'react-query'
 import { resetEditedTask, toggleCsrfState } from '../slices/appSlice'
 import { Task } from '../types/types'
 import { useNavigate } from 'react-router-dom'
 
-// タスクの登録・更新・削除を行うカスタムフック
 export const useMutateTask = () => {
-  const dispatch = useAppDispatch()
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
   const queryClient = useQueryClient()
 
-  // タスクの登録
   const createTaskMutation = useMutation(
     (task: Omit<Task, 'id'>) =>
       axios.post<Task>(`${process.env.REACT_APP_API_URL}/todo`, task, {
@@ -28,7 +26,7 @@ export const useMutateTask = () => {
       onError: (err: any) => {
         alert(`${err.response.data.detail}\n${err.message}`)
         if (
-          err.response.data.detail === 'The JWT has expired.' ||
+          err.response.data.detail === 'The JWT has expired' ||
           err.response.data.detail === 'The CSRF token has expired.'
         ) {
           dispatch(toggleCsrfState())
@@ -38,8 +36,6 @@ export const useMutateTask = () => {
       },
     }
   )
-
-  // タスクの更新
   const updateTaskMutation = useMutation(
     (task: Task) =>
       axios.put<Task>(
@@ -56,7 +52,7 @@ export const useMutateTask = () => {
       onSuccess: (res, variables) => {
         const previousTodos = queryClient.getQueryData<Task[]>('tasks')
         if (previousTodos) {
-          queryClient.setQueryData(
+          queryClient.setQueryData<Task[]>(
             'tasks',
             previousTodos.map((task) =>
               task.id === variables.id ? res.data : task
@@ -68,7 +64,7 @@ export const useMutateTask = () => {
       onError: (err: any) => {
         alert(`${err.response.data.detail}\n${err.message}`)
         if (
-          err.response.data.detail === 'The JWT has expired.' ||
+          err.response.data.detail === 'The JWT has expired' ||
           err.response.data.detail === 'The CSRF token has expired.'
         ) {
           dispatch(toggleCsrfState())
@@ -78,8 +74,6 @@ export const useMutateTask = () => {
       },
     }
   )
-
-  // タスクの削除
   const deleteTaskMutation = useMutation(
     (id: string) =>
       axios.delete(`${process.env.REACT_APP_API_URL}/todo/${id}`, {
@@ -99,7 +93,7 @@ export const useMutateTask = () => {
       onError: (err: any) => {
         alert(`${err.response.data.detail}\n${err.message}`)
         if (
-          err.response.data.detail === 'The JWT has expired.' ||
+          err.response.data.detail === 'The JWT has expired' ||
           err.response.data.detail === 'The CSRF token has expired.'
         ) {
           dispatch(toggleCsrfState())
@@ -109,7 +103,6 @@ export const useMutateTask = () => {
       },
     }
   )
-
   return {
     createTaskMutation,
     updateTaskMutation,

@@ -5,12 +5,10 @@ import { useAppDispatch } from '../app/hooks'
 import { resetEditedTask, toggleCsrfState } from '../slices/appSlice'
 import { User } from '../types/types'
 
-// ログイン処理のカスタムフック
 export const useMutateAuth = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
-  // ログイン処理 axiosを使ってサーバーにリクエストを送る
   const loginMutation = useMutation(
     async (user: User) =>
       await axios.post(`${process.env.REACT_APP_API_URL}/login`, user, {
@@ -26,9 +24,8 @@ export const useMutateAuth = () => {
           dispatch(toggleCsrfState())
         }
       },
-    },
+    }
   )
-  // register処理
   const registerMutation = useMutation(
     async (user: User) =>
       await axios.post(`${process.env.REACT_APP_API_URL}/register`, user),
@@ -39,9 +36,8 @@ export const useMutateAuth = () => {
           dispatch(toggleCsrfState())
         }
       },
-    },
+    }
   )
-  // ログアウト処理
   const logoutMutation = useMutation(
     async () =>
       await axios.post(
@@ -49,7 +45,7 @@ export const useMutateAuth = () => {
         {},
         {
           withCredentials: true,
-        },
+        }
       ),
     {
       onSuccess: () => {
@@ -63,8 +59,7 @@ export const useMutateAuth = () => {
           navigate('/')
         }
       },
-    },
+    }
   )
-
   return { loginMutation, registerMutation, logoutMutation }
 }

@@ -9,9 +9,8 @@ export const useProcessAuth = () => {
   const [email, setEmail] = useState('')
   const [pw, setPw] = useState('')
   const [isLogin, setIsLogin] = useState(true)
-  const { loginMutation, logoutMutation, registerMutation } = useMutateAuth()
+  const { loginMutation, registerMutation, logoutMutation } = useMutateAuth()
 
-  // サブミットで呼ばれる関数
   const processAuth = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (isLogin) {
@@ -37,8 +36,6 @@ export const useProcessAuth = () => {
         })
     }
   }
-
-  // ログアウト
   const logout = async () => {
     await logoutMutation.mutateAsync()
     queryClient.removeQueries('tasks')
